@@ -40,7 +40,8 @@ class AutoEncoder:
 
     def load_weights(self, checkpoint_path):
         """
-        Load auto-encoder weights. This also affects the reference to the base and head models.
+        Load auto-encoder weights. This also affects the reference to the base
+        and head models.
 
         :param checkpoint_path: Path to the checkpoint file.
         """
@@ -56,7 +57,8 @@ class AutoEncoder:
 
     def __initialize_autoencoder_model(self):
         """
-        Create the auto-encoder structure using the supplied base and head model.
+        Create the auto-encoder structure using the supplied base and
+        head model.
         """
         input_1 = Input(shape=self.input_shape)
 

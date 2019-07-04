@@ -13,11 +13,12 @@ from autoencoder import AutoEncoder
 
 def test_autoencoder():
     """
-    Test that all components of the auto-encoder work correctly by executing a training run against generated data.
+    Test that all components of the auto-encoder work correctly by executing a
+    training run against generated data.
     """
 
     input_shape = (3,)
-    epochs = 10
+    epochs = 1000
 
     # Generate some data
     x_train = np.random.rand(100, 3)
@@ -48,7 +49,8 @@ def test_autoencoder():
     autoencoder = AutoEncoder(encoder_model, decoder_model)
 
     # Prepare auto-encoder for training
-    autoencoder.compile(loss='binary_crossentropy', optimizer=keras.optimizers.adam())
+    autoencoder.compile(loss='binary_crossentropy',
+                        optimizer='adam')
 
     # Evaluate network before training to establish a baseline
     score_before = autoencoder.evaluate(x_train, x_train)
@@ -62,4 +64,4 @@ def test_autoencoder():
     score_after = autoencoder.evaluate(x_train, x_train)
 
     # Ensure that the training loss score improved as a result of the training
-    assert(score_before < score_after)
+    assert(score_before > score_after)
