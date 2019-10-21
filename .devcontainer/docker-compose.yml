@@ -1,4 +1,4 @@
-version: '3'
+version: '2.3'
 services:
   devcontainer:
   
@@ -11,6 +11,7 @@ services:
     network_mode: host
     environment:
       - DISPLAY=$DISPLAY
+    runtime: nvidia
 
     volumes:
       - ..:/workspace

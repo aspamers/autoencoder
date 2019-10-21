@@ -72,24 +72,10 @@ def create_encoder_model(input_shape):
 def create_decoder_model(embedding_shape):
     embedding_a = Input(shape=embedding_shape)
 
-    decoder = Dense(1 * 7 * 7)(embedding_a)
+    decoder = Dense(1 * 28 * 28)(embedding_a)
     decoder = BatchNormalization()(decoder)
     decoder = Activation(activation='relu')(decoder)
-    decoder = Reshape((1, 7, 7))(decoder)
-
-    decoder = Deconv2D(64, 3, 3, border_mode="same")(decoder)
-    decoder = BatchNormalization()(decoder)
-    decoder = Activation(activation='relu')(decoder)
-    decoder = UpSampling2D(size=(2, 2), interpolation='nearest')(decoder)
-
-    decoder = Deconv2D(32, 3, 3, border_mode="same")(decoder)
-    decoder = BatchNormalization()(decoder)
-    decoder = Activation(activation='relu')(decoder)
-    decoder = UpSampling2D(size=(2, 2), interpolation='nearest')(decoder)
-
-    decoder = Deconv2D(1, 3, 3, border_mode="same")(decoder)
-    decoder = BatchNormalization()(decoder)
-    decoder = Activation(activation='relu')(decoder)
+    decoder = Reshape(input_shape)(decoder)
 
     return Model(embedding_a, decoder)
 
@@ -98,9 +84,9 @@ num_classes = 10
 epochs = 999999
 
 encoder_model = create_encoder_model(input_shape)
-head_model = create_decoder_model(encoder_model.output_shape)
 
-autoencoder_network = AutoEncoder(encoder_model, head_model)
+decoder_model = create_decoder_model(encoder_model.output_shape)
+autoencoder_network = AutoEncoder(encoder_model, decoder_model)
 autoencoder_network.compile(loss='binary_crossentropy', optimizer=keras.optimizers.adam(), metrics=['accuracy'])
 
 autoencoder_checkpoint_path = "./autoencoder_checkpoint"
