@@ -1,8 +1,6 @@
-FROM tensorflow/tensorflow:1.12.3-gpu
+FROM tensorflow/tensorflow:1.13.2-gpu
 
 RUN apt-get update -y && apt-get upgrade -y && apt install net-tools -y
-
-RUN apt-get install python-tk -y
 
 ## Install basic functions
 RUN apt-get install sudo -y

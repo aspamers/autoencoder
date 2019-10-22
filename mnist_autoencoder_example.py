@@ -84,7 +84,6 @@ num_classes = 10
 epochs = 999999
 
 encoder_model = create_encoder_model(input_shape)
-
 decoder_model = create_decoder_model(encoder_model.output_shape)
 autoencoder_network = AutoEncoder(encoder_model, decoder_model)
 autoencoder_network.compile(loss='binary_crossentropy', optimizer=keras.optimizers.adam(), metrics=['accuracy'])
